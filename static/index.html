@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Video Downloader</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f2f2f2;
+      }
+      .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>YouTube Video Downloader</h1>
+      <form id="download-form" method="POST">
+        <label for="video_url">Enter YouTube video URL:</label>
+        <input type="text" id="video_url" name="video_url" required />
+        <button type="submit">Download</button>
+      </form>
+    </div>
+
+    <script>
+      const form = document.getElementById("download-form");
+      const SERVER_URL = "http://127.0.0.1:3000";
+
+      form?.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const videoUrl = document.getElementById("video_url").value;
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+          url: videoUrl,
+        });
+
+        const requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        form.reset();
+
+        fetch(`${SERVER_URL}/download`, requestOptions)
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Network response was not ok.");
+            }
+          })
+          .then((result) => {
+            const url = result.download_url;
+
+            if (url) {
+              const link = document.createElement("a");
+              link.href = url;
+              link.download = "";
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            } else {
+              alert("Error downloading video: " + response.statusText);
+            }
+          })
+          .catch((error) => {
+            alert("Error downloading video");
+            console.error(error);
+          });
+      });
+    </script>
+  </body>
+</html>
