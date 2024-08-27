@@ -20,13 +20,19 @@
 ## 🚀 Installation / Установка
 
 1. **Clone the repository** / **Клонируйте репозиторий**:
-   ```bash git clone https://github.com/hdream10/youtube-downloader.git```
-   ```bash cd youtube-downloader```
+   ```sh
+   git clone https://github.com/hdream10/youtube-downloader.git
+   ```
+   ```sh
+   cd youtube-downloader
+   ```
 
-2. **Install dependencies** / **Установите зависимости**:
-   ```bash pip install -r requirements.txt```
+3. **Install dependencies** / **Установите зависимости**:
+   ```sh
+   pip install -r requirements.txt
+   ```
 
-3. **Ensure FFmpeg is installed** / **Убедитесь, что FFmpeg установлен**:
+5. **Ensure FFmpeg is installed** / **Убедитесь, что FFmpeg установлен**:
    - [Download FFmpeg](https://ffmpeg.org/download.html) and add it to your system's PATH.
 
 ---
@@ -34,9 +40,11 @@
 ## 🎯 Usage / Использование
 
 1. **Run the Flask app** / **Запустите Flask приложение**:
-   ```bash python app.py```
+   ```sh
+   python app.py
+   ```
 
-2. **Open in browser** / **Откройте в браузере**:
+3. **Open in browser** / **Откройте в браузере**:
    - The front-end interface is served via the `index.html` file in the `static` directory.  
      Интерфейс обслуживается через файл `index.html` в каталоге `static`.
    - Open the `index.html` file directly in your browser to access the application.  
